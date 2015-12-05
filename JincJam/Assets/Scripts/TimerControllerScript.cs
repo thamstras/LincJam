@@ -13,7 +13,8 @@ public class TimerControllerScript : MonoBehaviour {
 
 	string MakeTextString(int t)
 	{
-
+		if (t <= 0)
+			return "DOOM";
 		int a = t / 60;
 		int b = t % 60;
 		string partA = a.ToString ();
@@ -36,5 +37,8 @@ public class TimerControllerScript : MonoBehaviour {
 		timeRemaining -= Time.deltaTime;
 
 		textBox.text = MakeTextString (Mathf.CeilToInt (timeRemaining));
+		if (timeRemaining < 30.0f) {
+			textBox.color = Color.red;
+		}
 	}
 }
