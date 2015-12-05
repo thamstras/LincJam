@@ -22,14 +22,11 @@ public class PlayerController : MonoBehaviour {
 		//NYI
 		//Spawn death splat and remove player.
 		//Make sure to detach camera.
-		/*var velAngle = Mathf.Atan (rb.velocity.y / rb.velocity.x);
-		Quaternion q = Quaternion.Euler (0, 0, velAngle);
-		var ds = (Transform)Instantiate (deathSplat, gameObject.transform.position, q);
-
-		var cam = Camera.main;
+		//Camera.main.gameObject.GetComponent<camShake> ().enabled = false;
 		gameObject.transform.DetachChildren ();
-		cam.transform.position = gameObject.transform.position;
-		Destroy (gameObject);*/
+		//Camera.main.transform.position = gameObject.transform.position;
+		Instantiate (deathSplat, gameObject.transform.position, Quaternion.identity);
+		Destroy (gameObject);
 	}
 
 	// Use this for initialization
@@ -51,7 +48,7 @@ public class PlayerController : MonoBehaviour {
 			rb.AddForce (vec);
 			if (jumpInput)
 			{
-				rb.velocity += new Vector2(0, 15);
+				rb.velocity += new Vector2(0, 20);
 				currentState = playerState.STATE_JUMP_UP;
 			}
 			break;
@@ -126,8 +123,8 @@ public class PlayerController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (rb.velocity.magnitude > 25.0f)
-			TimetoDie ();
+		//if (rb.velocity.magnitude > 25.0f)
+		//	TimetoDie ();
 
 		var normal = collision.contacts [0].normal;
 		if (normal == new Vector2(0, 1)) {
@@ -169,5 +166,13 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.tag == "Doom") {
+			Debug.Log ("DOOMED");
+			TimetoDie();
+			//DIE!
+		}
+	}
 
 }

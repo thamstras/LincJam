@@ -7,9 +7,11 @@ public class TimerControllerScript : MonoBehaviour {
 
 	//How many seconds does this timer last?
 	public int countTime = 300;
+	public Transform doom;
 
 	private Text textBox;
 	private float timeRemaining;
+	private bool spawned = false;
 
 	string MakeTextString(int t)
 	{
@@ -39,6 +41,11 @@ public class TimerControllerScript : MonoBehaviour {
 		textBox.text = MakeTextString (Mathf.CeilToInt (timeRemaining));
 		if (timeRemaining < 30.0f) {
 			textBox.color = Color.red;
+		}
+		if (timeRemaining < 0.0f && spawned == false)
+		{
+			Instantiate (doom, GameObject.FindGameObjectWithTag ("Player").transform.position + new Vector3 (0, 1900, -1), Quaternion.identity);
+			spawned = true;
 		}
 	}
 }
