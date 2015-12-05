@@ -24,6 +24,6 @@ public class GlobalProcBlockList : MonoBehaviour {
 
 	public Transform getNextBlock()
 	{
-		return prefabList [Random.Range(0, prefabList.Length-1)];
+		return prefabList [Random.Range(0, prefabList.Length)];
 	}
 }
