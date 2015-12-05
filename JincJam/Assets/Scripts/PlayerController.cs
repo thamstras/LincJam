@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour {
 			rb.velocity += new Vector2(0, 12);
 			onGround = false;
 		}
+		if (gameObject.transform.position.y < -400) {
+			//DIE!
+		}
 	}
 
 	void OnCollisionEnter2D(Collision2D collision)
