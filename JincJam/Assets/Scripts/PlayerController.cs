@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour {
 
 	private playerState currentState;
 
+	public Transform deathSplat;
+
 	public float speedMod = 5.0f;
 
 	public bool onGround = false;
@@ -16,6 +18,9 @@ public class PlayerController : MonoBehaviour {
 		//NYI
 		//Spawn death splat and remove player.
 		//Make sure to detach camera.
+		Instantiate (deathSplat, gameObject.transform.position, gameObject.transform.rotation);
+		gameObject.transform.DetachChildren ();
+		Destroy (gameObject);
 	}
 
 	// Use this for initialization
@@ -65,7 +70,7 @@ public class PlayerController : MonoBehaviour {
 			break;
 		}
 		if (gameObject.transform.position.y < -400) {
-			//DIE!
+			TimetoDie ();
 		}
 
 	}
@@ -74,21 +79,22 @@ public class PlayerController : MonoBehaviour {
 	{
 		if (GetComponent<Rigidbody2D> ().velocity.magnitude > 25.0f)
 			TimetoDie ();
-		Ray myRay = gameObject.transform.position - collision.gameObject.transform.position;
-		RaycastHit rayHit;
-		Physics.Raycast (myRay, out rayHit);
-		Vector3 normal = rayHit.normal;
-		normal = rayHit.transform.TransformDirection (normal);
-		if (normal == rayHit.transform.up) {
+
+		var normal = collision.contacts [0].normal;
+		if (normal == new Vector2(0, 1)) {
+			Debug.Log ("Hit top");
 			currentState = playerState.STATE_GROUND;
 		}
-		if (normal == rayHit.transform.right) {
+		if (normal == new Vector2(1, 0)) {
+			Debug.Log ("Hit right");
 			//currentState = playerState.STATE_WALL_UP
 		}
-		if (normal == -rayHit.transform.up) {
+		if (normal == new Vector2(0, -1)) {
+			Debug.Log("Hit bottom");
 			//hit ceiling
 		}
-		if (normal == -rayHit.transform.right) {
+		if (normal == new Vector2(-1, 0)) {
+			Debug.Log("Hit left");
 			//currentState = playerState.STATE_WALL_DOWN
 		}
 
