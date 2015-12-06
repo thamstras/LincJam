@@ -185,14 +185,16 @@ public class PlayerController : MonoBehaviour {
 		//	TimetoDie ();
 
 		var normal = collision.contacts [0].normal;
+		normal = collision.gameObject.transform.InverseTransformDirection (normal);
+		//Debug.Log (normal.ToString ());
 		if (normal == new Vector2(0, 1)) {
-			Debug.Log ("Hit top");
+			//Debug.Log ("Hit top");
 			currentState = playerState.STATE_GROUND;
 			anim.SetTrigger ("Landed");
 			running = false;
 		}
 		if (normal == new Vector2(1, 0)) {
-			Debug.Log ("Hit right");
+			//Debug.Log ("Hit right");
 			//currentState = playerState.STATE_WALL_UP
 			if (rb.velocity.x > 0){
 				wallJumpDirection = wallJump.JUMP_LEFT;
@@ -206,11 +208,11 @@ public class PlayerController : MonoBehaviour {
 			running = false;
 		}
 		if (normal == new Vector2(0, -1)) {
-			Debug.Log("Hit bottom");
+			//Debug.Log("Hit bottom");
 			//hit ceiling
 		}
 		if (normal == new Vector2(-1, 0)) {
-			Debug.Log("Hit left");
+			//Debug.Log("Hit left");
 			//currentState = playerState.STATE_WALL_DOWN
 			if (rb.velocity.x > 0) {
 				wallJumpDirection = wallJump.JUMP_LEFT;
@@ -229,7 +231,7 @@ public class PlayerController : MonoBehaviour {
 	void OnCollisionExit2D()
 	{
 		if (currentState == playerState.STATE_WALL_DOWN || currentState == playerState.STATE_WALL_UP) {
-			Debug.Log ("Slid off wall?");
+			//Debug.Log ("Slid off wall?");
 			//currentState = (rb.velocity.y > 0) ? playerState.STATE_JUMP_UP : playerState.STATE_JUMP_DOWN;
 			//anim.SetTrigger((rb.velocity.y > 0) ? "Jump" : "Fall");
 			if (rb.velocity.y > 0)
