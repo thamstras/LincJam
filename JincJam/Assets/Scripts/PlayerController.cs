@@ -62,6 +62,11 @@ public class PlayerController : MonoBehaviour {
 
 		switch (currentState) {
 		case playerState.STATE_GROUND:
+			if (Mathf.Abs(rb.velocity.y) > 5.0f)
+			{
+				currentState = playerState.STATE_JUMP_UP;
+				anim.SetTrigger ("Jump");
+			}
 			vec = new Vector2 (xInput * speedMod, 0);
 			if (vec.x < 0 && rb.velocity.x > 0)
 			{
