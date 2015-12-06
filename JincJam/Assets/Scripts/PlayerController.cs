@@ -63,6 +63,14 @@ public class PlayerController : MonoBehaviour {
 		switch (currentState) {
 		case playerState.STATE_GROUND:
 			vec = new Vector2 (xInput * speedMod, 0);
+			if (vec.x < 0 && rb.velocity.x > 0)
+			{
+				vec = new Vector2(2*xInput*speedMod, 0);
+			}
+			if (vec.x > 0 && rb.velocity.x < 0)
+			{
+				vec = new Vector2(2*xInput*speedMod, 0);
+			}
 			if (Mathf.Abs(xInput) > 0.5f){
 				if (!running){
 					running = true;
@@ -234,14 +242,13 @@ public class PlayerController : MonoBehaviour {
 			//Debug.Log ("Slid off wall?");
 			//currentState = (rb.velocity.y > 0) ? playerState.STATE_JUMP_UP : playerState.STATE_JUMP_DOWN;
 			//anim.SetTrigger((rb.velocity.y > 0) ? "Jump" : "Fall");
-			if (rb.velocity.y > 0)
-			{
+			if (rb.velocity.y > 0) {
 				currentState = playerState.STATE_JUMP_UP;
-				anim.SetTrigger("Jump");
+				anim.SetTrigger ("Jump");
 				running = false;
 			} else {
 				currentState = playerState.STATE_JUMP_DOWN;
-				anim.SetTrigger("Jump");
+				anim.SetTrigger ("Jump");
 				anim.SetTrigger ("Fall");
 				running = false;
 			}
