@@ -15,5 +15,9 @@ public class DOOMScript : MonoBehaviour {
 		var pos = gameObject.transform.position;
 		pos.y -= speed * Time.deltaTime;
 		gameObject.transform.position = pos;
+
+		var rot = gameObject.transform.rotation.eulerAngles;
+		rot.z += 40 * Time.deltaTime;
+		gameObject.transform.rotation = Quaternion.Euler (rot);
 	}
 }
