@@ -3,10 +3,10 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	private enum playerState {STATE_GROUND, STATE_JUMP_UP, STATE_JUMP_DOWN, STATE_WALL_UP, STATE_WALL_DOWN, STATE_WALL_TRANSITION};
+	public enum playerState {STATE_GROUND, STATE_JUMP_UP, STATE_JUMP_DOWN, STATE_WALL_UP, STATE_WALL_DOWN, STATE_WALL_TRANSITION};
 	private enum wallJump {JUMP_LEFT, JUMP_RIGHT};
 
-	private playerState currentState;
+	public playerState currentState;
 	private wallJump wallJumpDirection;
 
 	public Transform deathSplat;
